@@ -1,9 +1,44 @@
+import 'package:cafe_aux_donnees/Backend_bloc.dart';
 import 'package:cafe_aux_donnees/bottom_nav_bar.dart';
 import 'package:cafe_aux_donnees/daily_revenue.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+import 'package:cafe_aux_donnees/globals.dart' as globals;
+import 'package:cafe_aux_donnees/settings.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-void main() {
-  runApp(const MyApp());
+dynamic userObject;
+Future<void> main() async {
+  // TODO: Remove comment lines when ready
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+ // TODO: Remove comment lines when ready
+  // dynamic db = FirebaseFirestore.instance;
+  runApp(
+    MultiBlocProvider(
+      providers: [
+        BlocProvider<BackendBloc>(
+          create: (context) => BackendBloc()
+        ),
+      ],
+      child: MyApp()
+    )
+  );
+
+  // TODO: Remove comment lines when ready
+  // await db.collection("users").get().then((event) {
+  // for (var doc in event.docs) {
+  //   if (doc.data()['initials'] == "AJ") {
+  //     userObject = doc.data();
+  //   }
+  // }
+  // });
 }
 
 class MyApp extends StatelessWidget {
@@ -14,7 +49,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Café aux Données',
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: BlocProvider(create: (context) => BackendBloc(), child:  const MyHomePage(title: 'Flutter Demo Home Page')),
     );
   }
 }
@@ -28,10 +63,12 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
+dynamic backendBloc;
+
 List<Widget> pages = [
   Container(color: Colors.red,),
-  DailyRevenue(),
-  Container(color: Colors.blue,),
+  DailyRevenue(backendBloc: backendBloc),
+  SettingsUI()
 ];
 
 class _MyHomePageState extends State<MyHomePage> {
@@ -40,12 +77,13 @@ class _MyHomePageState extends State<MyHomePage> {
   void _onItemTapped(int index) {
     setState(() {
       selectedIndex = index;
+      globals.userObject ??= userObject;
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
+    backendBloc = BlocProvider.of<BackendBloc>(context);
 
     return Scaffold(
       body: pages[selectedIndex],

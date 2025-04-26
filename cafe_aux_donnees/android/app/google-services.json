@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "834620480229",
+    "project_id": "cafe-aux-donnees-fb13a",
+    "storage_bucket": "cafe-aux-donnees-fb13a.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:834620480229:android:7e9c4c3d14a6131dacd20c",
+        "android_client_info": {
+          "package_name": "com.example.cafe_aux_donnees"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_PmsNB3VzJ1g34dfm_iAK6xzPYos0HSQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
