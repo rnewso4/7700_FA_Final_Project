@@ -19,3 +19,8 @@ List<String> firebaseFieldNamesForXValues = [
   "market_spend",
   "loc_foot_traffic"
 ];
+
+bool showPopup = true;
+int pageLoaded = 0;
+List data = [];
+String dailyRev = "";
