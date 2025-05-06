@@ -22,8 +22,8 @@ class _DailyRevenueState extends State<DailyRevenue> {
   final Color _color = Color(0xFF9D5624);
   dynamic db = FirebaseFirestore.instance;
   String docID = "";
-  bool runOnce = true;
   String date1 = "";
+  bool runOnce = true;
 
   Future<void> usePreviousData() async {
     if (controllers.isNotEmpty) {
@@ -55,12 +55,12 @@ class _DailyRevenueState extends State<DailyRevenue> {
     final timeRightNow = DateTime.now();
     final date2 = DateFormat.yMMMd().format(timeRightNow);
     final data = {
-      "num_of_cust": controllers[0].text,
-      "avg_or_val": controllers[1].text,
-      "op_hours": controllers[2].text,
-      "num_of_emploi": controllers[3].text,
-      "market_spend": controllers[4].text,
-      "loc_foot_traffic": controllers[5].text,
+      "num_of_cust": int.parse(controllers[0].text),
+      "avg_or_val": double.parse(controllers[1].text),
+      "op_hours": int.parse(controllers[2].text),
+      "num_of_emploi": int.parse(controllers[3].text),
+      "market_spend": double.parse(controllers[4].text),
+      "loc_foot_traffic": int.parse(controllers[5].text),
       "daily_rev": double.parse(globals.dailyRev),
       "date": Timestamp.now(),
     };
@@ -365,13 +365,13 @@ class _AlignTextFieldsState extends State<AlignTextFields> {
   @override
   void initState() {
     controllers.add(_controller);
-    //_controller.text = widget.inputText.toString();
     super.initState();
   }
 
   @override
   void dispose() {
     _controller.dispose();
+    controllers.clear();
     super.dispose();
   }
 

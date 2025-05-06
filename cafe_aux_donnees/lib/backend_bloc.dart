@@ -6,7 +6,7 @@ class BackendBloc extends Cubit<String> {
   BackendBloc() : super('');
 
   Future<void> fetchData() async {
-    String parseString = "http://localhost:5000/api/data";
+    String parseString = "http://127.0.0.1:5000/api/data";
 
     for (final i in globals.data) {
       parseString += '/$i';
@@ -20,7 +20,7 @@ class BackendBloc extends Cubit<String> {
   }
 
   Future<void> postData() async {
-    String parseString = "http://localhost:5000/api/postdata";
+    String parseString = "http://127.0.0.1:5000/api/postdata";
 
     for (final i in globals.data) {
       parseString += '/$i';

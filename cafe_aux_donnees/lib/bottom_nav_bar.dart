@@ -23,7 +23,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(                                                
+      decoration: BoxDecoration(                                        
         borderRadius: BorderRadius.only(                                           
         topRight: Radius.circular(30), topLeft: Radius.circular(30)),
         boxShadow: [                                                               

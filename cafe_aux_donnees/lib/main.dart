@@ -1,6 +1,7 @@
 import 'package:cafe_aux_donnees/Backend_bloc.dart';
 import 'package:cafe_aux_donnees/bottom_nav_bar.dart';
 import 'package:cafe_aux_donnees/daily_revenue.dart';
+import 'package:cafe_aux_donnees/revenue_list.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -63,7 +64,7 @@ class MyHomePage extends StatefulWidget {
 dynamic backendBloc;
 
 List<Widget> pages = [
-  Container(color: Colors.red,),
+  RevenueList(),
   DailyRevenue(backendBloc: backendBloc),
   SettingsUI()
 ];
