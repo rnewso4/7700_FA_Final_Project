@@ -71,6 +71,9 @@ class LinearRegressionModel(nn.Module): # <- almost everything in PyTorch inheri
     return epoch_count, loss_values, test_loss_values
 
 def evaluate(loaded_model, X_test, y_test):
+  '''
+  This function will evaluate the model using test data and returns the test loss
+  '''
   loss_fn = nn.MSELoss()
   loaded_model.eval()
   with torch.inference_mode():
@@ -86,13 +89,15 @@ def plot_loss(epoch_count, loss_vals, other_loss_vals, second_label):
   plt.xlabel("Epochs")
   plt.legend()
 
-def generate(loaded_model, data, X_mean, X_std, y_mean, y_std):
+def generate(loaded_model, data, X_mean, X_std, y_mean, y_std, preprocessed=False):
   # customers, avg order, op hours, emploi, market spend, foot traff
 
-  head = [data]
-  data = pd.DataFrame(head, columns=['Number_of_Customers_Per_Day', 'Average_Order_Value', 'Operating_Hours_Per_Day', 'Number_of_Employees', 'Marketing_Spend_Per_Day', 'Location_Foot_Traffic'])
-  data = (data - X_mean) / X_std
-  data = torch.tensor(data.values, dtype=torch.float)
+  if (not preprocessed):
+    head = [data]
+    data = pd.DataFrame(head, columns=['Number_of_Customers_Per_Day', 'Average_Order_Value', 'Operating_Hours_Per_Day', 'Number_of_Employees', 'Marketing_Spend_Per_Day', 'Location_Foot_Traffic'])
+    data = (data - X_mean) / X_std
+    data = torch.tensor(data.values, dtype=torch.float)
+    
   loaded_model.eval()
   with torch.inference_mode():
     pred_logit = loaded_model.forward(data)
